@@ -2,20 +2,31 @@
 <main class="container">
   <h1>{{ title }}</h1>
 
-  <p>Version: {{ version }}</p>
-
-  <h2>Backend status</h2>
-
-  <p>
-    Connected: {{ backendConnected }}
+  <p class="sub-title">
+    Angular + Spring Boot + OpenSearch + RAG + Ollama
   </p>
 
   <hr>
 
-  <h2>Ask a question</h2>
+  <section class="chat-section">
+    <h2>Ask a RAG question</h2>
+    <p>{{ question }}</p>
+    <textarea
+      [(ngModel)]="question"
+      placeholder="Type your question here..."
+      rows="4" cols="50">
+    </textarea>
+    <br>
+    <button
+      [disabled]="question.trim() === ''"
+      (click)="sendQuestion()">Send
+    </button>
+  </section>
 
-  <p>
-    Our Angular application will communicate
-    with the Spring Boot RAG backend.
-  </p>
+  @if (answer) {
+  ` <section class="answer-section">
+      <h2>RAG Answer</h2>
+      <p>Answer: {{ answer }}</p>
+    </section>
+  }
 </main>
