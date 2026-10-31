@@ -1,6 +1,10 @@
 
 <div class="chat-container">
 
+  <section>
+    <p>Version: {{ getServiceVersion() }}</p>
+  </section>
+
   <app-question-input
     (questionSubmitted)="onQuestionSubmitted($event)">
   </app-question-input>

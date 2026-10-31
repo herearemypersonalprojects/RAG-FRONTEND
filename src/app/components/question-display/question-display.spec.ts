@@ -11,6 +11,7 @@ describe('QuestionDisplay', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(QuestionDisplay);
+    fixture.componentRef.setInput('lastQuestion', 'What is the capital of France?');
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

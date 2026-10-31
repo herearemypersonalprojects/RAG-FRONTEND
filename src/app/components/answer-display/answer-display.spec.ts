@@ -11,6 +11,7 @@ describe('AnswerDisplay', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(AnswerDisplay);
+    fixture.componentRef.setInput('answer', 'The capital of France is Paris.');
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
