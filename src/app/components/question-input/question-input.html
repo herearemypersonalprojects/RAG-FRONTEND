@@ -1,0 +1,13 @@
+<section class="question-container">
+  <h2>Ask a RAG question</h2>
+  <textarea
+    [(ngModel)]="question"
+    placeholder="Type your question here..."
+    rows="4" cols="50">
+  </textarea>
+  <br>
+  <button
+    [disabled]="question.trim() === ''"
+    (click)="sendQuestion()">Send
+  </button>
+</section>

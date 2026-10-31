@@ -1,20 +1,18 @@
 
 .container {
   max-width: 900px;
-  margin: 60px auto;
+  margin: 50px auto;
   padding: 30px;
   font-family: Arial, sans-serif;
 }
 
 h1 {
+  text-align: center;
   color: #2563eb;
 }
 
-h2 {
-  margin-top: 30px;
-}
-
-p {
-  font-size: 16px;
-  line-height: 1.6;
+.subtitle {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 40px;
 }

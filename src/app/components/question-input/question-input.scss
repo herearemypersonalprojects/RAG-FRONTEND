@@ -1,0 +1,30 @@
+
+.question-container {
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+}
+
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 12px 24px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}

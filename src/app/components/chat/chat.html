@@ -1,0 +1,16 @@
+
+<div class="chat-container">
+
+  <app-question-input
+    (questionSubmitted)="onQuestionSubmitted($event)">
+  </app-question-input>
+
+  @if (answer) {
+
+  <app-answer-display
+    [answer]="answer">
+  </app-answer-display>
+
+  }
+
+</div>

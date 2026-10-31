@@ -1,32 +1,12 @@
 
 <main class="container">
+
   <h1>{{ title }}</h1>
 
-  <p class="sub-title">
-    Angular + Spring Boot + OpenSearch + RAG + Ollama
+  <p class="subtitle">
+    Angular + Spring Boot + OpenSearch + Ollama
   </p>
 
-  <hr>
+  <app-chat></app-chat>
 
-  <section class="chat-section">
-    <h2>Ask a RAG question</h2>
-    <p>{{ question }}</p>
-    <textarea
-      [(ngModel)]="question"
-      placeholder="Type your question here..."
-      rows="4" cols="50">
-    </textarea>
-    <br>
-    <button
-      [disabled]="question.trim() === ''"
-      (click)="sendQuestion()">Send
-    </button>
-  </section>
-
-  @if (answer) {
-  ` <section class="answer-section">
-      <h2>RAG Answer</h2>
-      <p>Answer: {{ answer }}</p>
-    </section>
-  }
 </main>
