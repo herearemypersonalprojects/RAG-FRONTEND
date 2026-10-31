@@ -13,4 +13,9 @@
 
   }
 
+  @if (lastQuestion) {
+    <app-question-display
+      [lastQuestion]="lastQuestion">
+    </app-question-display>
+  }
 </div>
