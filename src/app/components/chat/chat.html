@@ -1,36 +1,60 @@
 <div class="chat-container">
   <app-question-input
-    [loading]="loading()"
-    (questionSubmitted)="onQuestionSubmitted($event)">
+    [loading]="chatStore.loading()"
+    (questionSubmitted)="onQuestionSubmitted($event)"
+  >
   </app-question-input>
 
-  @if (loading()) {
-    <div class="loading">Searching documents and generating answer...</div>
-  }
+  <div class="history-header">
+    <h2>Conversation History</h2>
 
-  @if (errorMessage(); as message) {
-    <div class="error">
-      {{ message }}
-    </div>
-  }
+    <span> {{ chatStore.messageCount() }} questions </span>
 
-  @if (response(); as result) {
-    <app-answer-display [answer]="result.answer"> </app-answer-display>
+    <button type="button" [disabled]="chatStore.messageCount() === 0" (click)="clearHistory()">
+      Clear History
+    </button>
+  </div>
 
-    @if (result.sources.length > 0) {
-      <section class="sources">
-        <h3>Retrieved Sources</h3>
+  @if (chatStore.messageCount() === 0) {
+    <p class="empty-history">No questions yet. Ask your first RAG question.</p>
+  } @else {
+    @for (message of chatStore.messages(); track message.id) {
+      <article class="message-card">
+        <div class="question">
+          <strong>Question</strong>
+          <p>{{ message.question }}</p>
+          <small>Top K: {{ message.topK }}</small>
+        </div>
 
-        @for (source of result.sources; track source.chunkId) {
-          <div class="source-card">
-            <strong>{{ source.source }}</strong>
-
-            <p>Score: {{ source.score }}</p>
-
-            <p>{{ source.content }}</p>
+        @if (message.status === 'pending') {
+          <div class="loading">Searching documents and generating answer...</div>
+        } @else if (message.status === 'error') {
+          <div class="error" role="alert">
+            {{ message.errorMessage }}
           </div>
+        } @else if (message.answer !== null) {
+          <app-answer-display [answer]="message.answer"> </app-answer-display>
+
+          @if (message.sources.length > 0) {
+            <div class="sources">
+              <h4>Retrieved Sources</h4>
+
+              @for (source of message.sources; track $index) {
+                <div class="source-card">
+                  <strong>{{ source.source }}</strong>
+                  <p>Score: {{ source.score }}</p>
+                  <p>{{ source.content }}</p>
+                </div>
+              }
+            </div>
+          }
         }
-      </section>
+      </article>
     }
   }
+
+  <footer class="statistics">
+    Successfully answered:
+    {{ chatStore.successfulCount() }}
+  </footer>
 </div>

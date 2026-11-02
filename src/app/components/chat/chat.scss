@@ -1,36 +1,100 @@
-
 .chat-container {
   width: 100%;
 }
 
+.history-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+  margin-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  span {
+    color: #64748b;
+    font-size: 13px;
+  }
+
+  button {
+    margin-left: auto;
+    padding: 9px 14px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: white;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.message-card {
+  margin-bottom: 18px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.question {
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+
+  p {
+    white-space: pre-wrap;
+  }
+
+  small {
+    color: #64748b;
+  }
+}
+
 .loading {
-  margin-top: 20px;
-  padding: 16px;
+  margin-top: 16px;
+  padding: 15px;
   background: #fef9c3;
   border-radius: 8px;
 }
 
 .error {
-  margin-top: 20px;
-  padding: 16px;
-  background: #fee2e2;
+  margin-top: 16px;
+  padding: 15px;
   color: #991b1b;
+  background: #fee2e2;
   border-radius: 8px;
 }
 
 .sources {
-  margin-top: 30px;
+  margin-top: 18px;
 }
 
 .source-card {
-  padding: 16px;
-  margin-top: 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  padding: 12px;
+  margin-top: 8px;
   background: #f8fafc;
+  border-radius: 8px;
+
+  p {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
 }
 
-.source-card p {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
+.empty-history {
+  color: #64748b;
+  padding: 20px;
+  text-align: center;
+}
+
+.statistics {
+  margin-top: 18px;
+  color: #64748b;
+  font-size: 13px;
 }
