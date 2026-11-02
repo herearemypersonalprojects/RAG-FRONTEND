@@ -1,0 +1,9 @@
+useful command lines:
+1) Run app with proxy
+ng serve --proxy-config proxy.conf.json
+
+2)Run unit tests
+ng test --watch=false
+ng test --watch=false --include=src/app/services/rag.spec.ts
+
+

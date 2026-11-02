@@ -1,29 +1,63 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+
+import { HttpErrorResponse } from '@angular/common/http';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize } from 'rxjs';
 
 import { RagService } from '../../services/rag';
+import { RagResponse } from '../../models/rag.model';
 
 import { QuestionInput } from '../question-input/question-input';
 import { AnswerDisplay } from '../answer-display/answer-display';
-import { QuestionDisplay } from '../question-display/question-display';
 
 @Component({
-  imports: [QuestionInput, AnswerDisplay, QuestionDisplay],
-  standalone: true,
   selector: 'app-chat',
-  styleUrl: './chat.scss',
+  standalone: true,
+  imports: [QuestionInput, AnswerDisplay],
   templateUrl: './chat.html',
+  styleUrl: './chat.scss',
 })
 export class Chat {
   private readonly ragService = inject(RagService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  answer: String = '';
-  lastQuestion: String = '';
-  onQuestionSubmitted(question: String) {
-    this.lastQuestion = question;
-    this.answer = this.ragService.ask(question);
-  }
+  readonly loading = signal(false);
+  readonly errorMessage = signal<string | null>(null);
+  readonly response = signal<RagResponse | null>(null);
 
-  getServiceVersion() {
-    return this.ragService.getServiceVersion();
+  onQuestionSubmitted(question: string): void {
+    if (this.loading()) {
+      return;
+    }
+
+    this.loading.set(true);
+    this.errorMessage.set(null);
+    this.response.set(null);
+
+    this.ragService
+      .ask(question, 3)
+      .pipe(
+        finalize(() => this.loading.set(false)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (result: RagResponse) => {
+          this.response.set(result);
+        },
+
+        error: (error: unknown) => {
+          console.error('RAG API error:', error);
+
+          if (error instanceof HttpErrorResponse) {
+            if (error.status === 0) {
+              this.errorMessage.set('Cannot connect to the Spring Boot backend.');
+            } else {
+              this.errorMessage.set(`Backend error: HTTP ${error.status}`);
+            }
+          } else {
+            this.errorMessage.set('Unexpected error while processing the question.');
+          }
+        },
+      });
   }
 }

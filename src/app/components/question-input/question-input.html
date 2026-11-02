@@ -7,7 +7,7 @@
   </textarea>
   <br>
   <button
-    [disabled]="question.trim() === ''"
-    (click)="sendQuestion()">Send
+    [disabled]="loading() || question.trim().length === 0"
+    (click)="sendQuestion()">{{ loading() ? 'Processing...' : 'Send Question' }}
   </button>
 </section>

@@ -7,5 +7,5 @@ import { Component, input } from '@angular/core';
   templateUrl: './question-display.html',
 })
 export class QuestionDisplay {
-  lastQuestion = input.required<String>();
+  lastQuestion = input.required<string>();
 }

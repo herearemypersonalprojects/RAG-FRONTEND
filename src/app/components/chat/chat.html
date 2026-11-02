@@ -1,25 +1,36 @@
-
 <div class="chat-container">
-
-  <section>
-    <p>Version: {{ getServiceVersion() }}</p>
-  </section>
-
   <app-question-input
+    [loading]="loading()"
     (questionSubmitted)="onQuestionSubmitted($event)">
   </app-question-input>
 
-  @if (answer) {
-
-  <app-answer-display
-    [answer]="answer">
-  </app-answer-display>
-
+  @if (loading()) {
+    <div class="loading">Searching documents and generating answer...</div>
   }
 
-  @if (lastQuestion) {
-    <app-question-display
-      [lastQuestion]="lastQuestion">
-    </app-question-display>
+  @if (errorMessage(); as message) {
+    <div class="error">
+      {{ message }}
+    </div>
+  }
+
+  @if (response(); as result) {
+    <app-answer-display [answer]="result.answer"> </app-answer-display>
+
+    @if (result.sources.length > 0) {
+      <section class="sources">
+        <h3>Retrieved Sources</h3>
+
+        @for (source of result.sources; track source.chunkId) {
+          <div class="source-card">
+            <strong>{{ source.source }}</strong>
+
+            <p>Score: {{ source.score }}</p>
+
+            <p>{{ source.content }}</p>
+          </div>
+        }
+      </section>
+    }
   }
 </div>

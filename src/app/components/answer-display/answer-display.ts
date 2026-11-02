@@ -7,5 +7,5 @@ import { Component, input } from '@angular/core';
   templateUrl: './answer-display.html',
 })
 export class AnswerDisplay {
-  answer = input.required<String>();
+  answer = input.required<string>();
 }
