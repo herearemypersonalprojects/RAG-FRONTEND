@@ -28,7 +28,11 @@ export class RagService {
 
     return this.http.post<RagResponse>(
       this.apiUrl,
-      request);
+      request,
+      {
+        timeout: 120_000, // 120 seconds
+      }
+      );
   }
 
   getServiceVersion(): string {

@@ -2,11 +2,12 @@ import { TestBed } from '@angular/core/testing';
 
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { beforeEach, afterEach, describe, expect, it } from 'vitest';
 
 import { ChatStore } from './chat';
+import { errorInterceptor } from '../interceptors/error.interceptor';
 
 describe('ChatStore', () => {
   let store: ChatStore;
@@ -14,7 +15,10 @@ describe('ChatStore', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
+      ],
     });
 
     store = TestBed.inject(ChatStore);
@@ -76,7 +80,8 @@ describe('ChatStore', () => {
 
     expect(store.loading()).toBe(false);
     expect(store.messages()[0].status).toBe('error');
-    expect(store.errorMessage()).toContain('500');
+    expect(store.errorMessage()).toBe('The server encountered an error.');
+    expect(store.messages()[0].errorMessage).toBe('The server encountered an error.');
   });
 
   it('should clear history and cancel a pending request', () => {
