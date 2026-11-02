@@ -1,13 +1,82 @@
+
 <section class="question-container">
-  <h2>Ask a RAG question</h2>
-  <textarea
-    [(ngModel)]="question"
-    placeholder="Type your question here..."
-    rows="4" cols="50">
-  </textarea>
-  <br>
-  <button
-    [disabled]="loading() || question.trim().length === 0"
-    (click)="sendQuestion()">{{ loading() ? 'Processing...' : 'Send Question' }}
-  </button>
+
+  <h2>Ask a Question</h2>
+
+  <form
+    [formGroup]="questionForm"
+    (ngSubmit)="onSubmit()">
+
+    <div class="form-field">
+
+      <label for="question">Question</label>
+
+      <textarea
+        id="question"
+        formControlName="question"
+        placeholder="Enter your RAG question..."
+        rows="4">
+      </textarea>
+
+      <small>
+        {{ questionControl.value.length }} / 2000
+      </small>
+
+      @if (questionControl.invalid &&
+      (questionControl.touched || questionControl.dirty)) {
+
+      <div class="validation-error" role="alert">
+
+        @if (questionControl.hasError('required')) {
+        <p>Question is required.</p>
+        }
+
+        @if (questionControl.hasError('meaningfulMinLength')) {
+        <p>
+          Please enter at least 10 meaningful characters.
+        </p>
+        }
+
+        @if (questionControl.hasError('maxlength')) {
+        <p>Maximum 2000 characters allowed.</p>
+        }
+
+      </div>
+      }
+
+    </div>
+
+    <div class="form-field">
+
+      <label for="topK">Number of retrieved documents</label>
+
+      <select
+        id="topK"
+        formControlName="topK">
+
+        <option [ngValue]="1">1 document</option>
+        <option [ngValue]="2">2 documents</option>
+        <option [ngValue]="3">3 documents</option>
+
+      </select>
+
+      @if (topKControl.invalid &&
+      (topKControl.touched || topKControl.dirty)) {
+      <p class="validation-error">
+        Top K must be between 1 and 3.
+      </p>
+      }
+
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="questionForm.invalid || loading()">
+
+      {{ loading() ? 'Processing...' : 'Send Question' }}
+
+    </button>
+
+  </form>
+
 </section>

@@ -1,26 +1,61 @@
 
 .question-container {
-  background: #f8fafc;
   padding: 24px;
+  background: #f8fafc;
   border-radius: 12px;
 }
 
-textarea {
+.form-field {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+textarea,
+select {
   box-sizing: border-box;
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   font-size: 16px;
+  background: white;
+}
+
+textarea:focus,
+select:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+}
+
+small {
+  display: block;
+  margin-top: 5px;
+  color: #64748b;
+  text-align: right;
+}
+
+.validation-error {
+  margin-top: 8px;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.validation-error p {
+  margin: 4px 0;
 }
 
 button {
-  margin-top: 15px;
   padding: 12px 24px;
+  border: 0;
+  border-radius: 8px;
   background: #2563eb;
   color: white;
-  border: none;
-  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
 }
 

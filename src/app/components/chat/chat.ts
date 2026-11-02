@@ -5,7 +5,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs';
 
 import { RagService } from '../../services/rag';
-import { RagResponse } from '../../models/rag.model';
+
+import { RagRequest, RagResponse } from '../../models/rag.model';
 
 import { QuestionInput } from '../question-input/question-input';
 import { AnswerDisplay } from '../answer-display/answer-display';
@@ -25,7 +26,7 @@ export class Chat {
   readonly errorMessage = signal<string | null>(null);
   readonly response = signal<RagResponse | null>(null);
 
-  onQuestionSubmitted(question: string): void {
+  onQuestionSubmitted(request: RagRequest): void {
     if (this.loading()) {
       return;
     }
@@ -35,7 +36,7 @@ export class Chat {
     this.response.set(null);
 
     this.ragService
-      .ask(question, 3)
+      .ask(request.question, request.topK)
       .pipe(
         finalize(() => this.loading.set(false)),
         takeUntilDestroyed(this.destroyRef),
@@ -50,12 +51,12 @@ export class Chat {
 
           if (error instanceof HttpErrorResponse) {
             if (error.status === 0) {
-              this.errorMessage.set('Cannot connect to the Spring Boot backend.');
+              this.errorMessage.set('Cannot connect to Spring Boot backend.');
             } else {
               this.errorMessage.set(`Backend error: HTTP ${error.status}`);
             }
           } else {
-            this.errorMessage.set('Unexpected error while processing the question.');
+            this.errorMessage.set('Unexpected error while processing question.');
           }
         },
       });
