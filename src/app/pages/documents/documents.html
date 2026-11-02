@@ -1,0 +1,56 @@
+
+<section class="documents-page">
+
+  <h2>Indexed Documents</h2>
+
+  <p>
+    Demo documents for learning Angular Routing.
+  </p>
+
+  <div class="document-list">
+
+    @for (doc of documents; track doc.id) {
+
+    <a
+      class="document-card"
+      [routerLink]="['/documents', doc.id]">
+
+      <strong>{{ doc.name }}</strong>
+
+      <span>{{ doc.type }}</span>
+
+      <p>{{ doc.description }}</p>
+
+    </a>
+
+    }
+
+  </div>
+
+  @if (selectedId(); as documentId) {
+
+  <div class="document-details">
+
+    @if (selectedDocument(); as document) {
+
+    <h3>Selected Document</h3>
+
+    <p>ID: {{ document.id }}</p>
+    <p>Name: {{ document.name }}</p>
+    <p>Type: {{ document.type }}</p>
+    <p>{{ document.description }}</p>
+
+    } @else {
+
+    <p>Document {{ documentId }} not found.</p>
+
+    }
+
+    <a routerLink="/documents">
+      Back to documents
+    </a>
+
+  </div>
+  }
+
+</section>

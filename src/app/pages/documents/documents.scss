@@ -1,0 +1,44 @@
+
+.documents-page {
+  padding-bottom: 30px;
+}
+
+.document-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.document-card {
+  display: block;
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #1e293b;
+}
+
+.document-card:hover {
+  border-color: #2563eb;
+}
+
+.document-card span {
+  display: inline-block;
+  margin-left: 12px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.document-card p {
+  margin-bottom: 0;
+  color: #64748b;
+}
+
+.document-details {
+  margin-top: 24px;
+  padding: 20px;
+  border-left: 4px solid #2563eb;
+  background: #eff6ff;
+  border-radius: 8px;
+}

@@ -1,12 +1,43 @@
 
-<main class="container">
+<div class="app-shell">
 
-  <h1>{{ title }}</h1>
+  <header class="app-header">
 
-  <p class="subtitle">
-    Angular + Spring Boot + OpenSearch + Ollama
-  </p>
+    <h1>{{ title }}</h1>
 
-  <app-chat></app-chat>
+    <p>
+      Angular + Spring Boot + OpenSearch + Ollama
+    </p>
 
-</main>
+    <nav aria-label="Main navigation">
+
+      <a
+        routerLink="/chat"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page">
+        Chat
+      </a>
+
+      <a
+        routerLink="/documents"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page">
+        Documents
+      </a>
+
+      <a
+        routerLink="/settings"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page">
+        Settings
+      </a>
+
+    </nav>
+
+  </header>
+
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

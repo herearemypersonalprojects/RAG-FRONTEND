@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { Chat } from './components/chat/chat';
+
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Chat],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  title: string = 'RAG Knowledge Assistant';
+  readonly title = 'RAG Knowledge Assistant';
 }
